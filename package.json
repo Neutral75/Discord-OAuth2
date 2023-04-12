@@ -1,0 +1,26 @@
+{
+  "name": "discord-oauth2",
+  "version": "1.0.0",
+  "description": "A simple discord authentication template for me to refer back to and to simplify for other developers.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/neutral75/discord-oauth2.git"
+  },
+  "author": "neutral75",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/neutral75/discord-oauth2/issues"
+  },
+  "homepage": "https://github.com/neutral75/discord-oauth2#readme",
+  "dependencies": {
+    "cookie-parser": "^1.4.6",
+    "dotenv": "^16.0.3",
+    "ejs": "^3.1.9",
+    "express": "^4.18.2",
+    "path": "^0.12.7"
+  }
+}
