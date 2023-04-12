@@ -21,6 +21,13 @@ app.get('/login', async (request, response) => {
     return response.redirect(`https://discord.com/api/oauth2/authorize?client_id=${config.clientID}&redirect_uri=${config.redirectURI}&response_type=code&scope=${config.scope}`);
 });
 
+app.get('/logout', async (request, response) => {
+    response.clearCookie('token_type');
+    response.clearCookie('access_token');
+
+    return response.redirect('/');
+});
+
 app.get('/auth/discord', async (request, response) => {
     const code = request.query.code;
 
