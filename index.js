@@ -27,6 +27,10 @@ app.get('/', async (request, response) => {
     });
 });
 
+app.get('/testing', async (request, response) => {
+    return response.render('testing')
+});
+
 app.get('/login', async (request, response) => {
     return response.redirect(`https://discord.com/api/oauth2/authorize?client_id=${config.clientID}&redirect_uri=${config.redirectURI}&response_type=code&scope=${config.scope}`);
 });
@@ -97,5 +101,5 @@ app.get('/dashboard', async (request, response) => {
 });
 
 app.listen(config.PORT, () => {
-    return console.log('Beep! Running on port ' + config.PORT);
+    return console.log('Beep! Running on PORT ' + config.PORT);
 });

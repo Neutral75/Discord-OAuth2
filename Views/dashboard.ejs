@@ -6,26 +6,207 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Discord OAuth2</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        ul[class] {
+            list-style: none;
+        }
+
+        button {
+            font: inherit;
+        }
+    </style>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+        :root {
+            --background: #313338;
+            --primary: ;
+            --light: #F7EEEE;
+            --dark: #000000;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        body {
+            background: var(--background);
+            color: var(--light);
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            overflow-y: scroll;
+            width: 100%;
+        }
+
+        nav::-webkit-scrollbar {
+            display: none;
+        }
+
+        .guilds-container {
+            background: #1e1f22;
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            gap: 1rem;
+            position: absolute;
+            box-sizing: border-box;
+            z-index: 2;
+        }
+
+        .squircle {
+            background: #313338;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            cursor: pointer;
+            position: relative;
+            transition: border-radius 128ms, background 128ms, color 128ms;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .squircle:hover {
+            border-radius: 36%;
+        }
+
+        .squircle:hover::before {
+            transform: translate(-100%, -50%) scale(.5);
+        }
+
+        .squircle:hover .popper-boi {
+            opacity: 1;
+            transform: translateY(-50%) scale(1);
+        }
+
+        /* pill */
+        .squircle::before {
+            content: '';
+            width: 100%;
+            height: 100%;
+            background: var(--light);
+            position: absolute;
+            border-radius: 5px;
+            top: 50%;
+            transform: translate(-100%, -50%) scale(0);
+            transition: transform 180ms;
+        }
+
+        .purple-boi:hover {
+            background: #5865f2;
+        }
+
+        .green-boi {
+            color: #23a559;
+        }
+
+        .green-boi:hover {
+            background: #23a559;
+            color: var(--light);
+        }
+
+        .divider {
+            width: 100%;
+            background: var(--light);
+            height: 2px;
+            border-radius: 1px;
+            opacity: .06;
+            transform: scale(.75);
+        }
+
+        .popper-boi {
+            background: var(--dark);
+            padding: 0.68rem 1rem;
+            position: absolute;
+            top: 50%;
+            left: 155%;
+            transform-origin: left;
+            transform: translateY(-50%) scale(0.98);
+            width: max-content;
+            max-width: 256px;
+            border-radius: 4px;
+            opacity: 0;
+            transition: opacity 64ms, transform 128ms cubic-bezier(0.43, 0.09, 0.38, 2.56);
+            pointer-events: none;
+            color: var(--light);
+        }
+
+        .popper-boi::before {
+            content: '';
+            position: absolute;
+            left: -2px;
+            top: 50%;
+            transform: translateY(-50%) rotate(45deg);
+            background: var(--dark);
+            width: 24px;
+            height: 24px;
+            z-index: -1;
+        }
+
+        .server-icon {
+            width: inherit;
+            border-radius: inherit;
+        }
+    </style>
 </head>
 
 <body>
-    <h1>Dashboard</h1>
-    <a href="https://cdn.discordapp.com/avatars/<%= user.id %>/<%= user.avatar %>"><img src="https://cdn.discordapp.com/avatars/<%= user.id %>/<%= user.avatar %>" width="55px" height="55px" /></a>
-    <p><%= user.username + '#' + user.discriminator %></p>
-    <a href="/logout">Logout</a>
-    <br>
-    <% if (guilds.length === 0) { %>
-        <p>You aren't in any guilds!</p>
-    <% } else { %>
-        <ul>
+    <nav>
+        <ul class="guilds-container">
+            <li class="squircle purple-boi">
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" style="fill: #FFFFFF;">
+                    <path d="M14.82 4.26a10.14 10.14 0 0 0-.53 1.1 14.66 14.66 0 0 0-4.58 0 10.14 10.14 0 0 0-.53-1.1 16 16 0 0 0-4.13 1.3 17.33 17.33 0 0 0-3 11.59 16.6 16.6 0 0 0 5.07 2.59A12.89 12.89 0 0 0 8.23 18a9.65 9.65 0 0 1-1.71-.83 3.39 3.39 0 0 0 .42-.33 11.66 11.66 0 0 0 10.12 0q.21.18.42.33a10.84 10.84 0 0 1-1.71.84 12.41 12.41 0 0 0 1.08 1.78 16.44 16.44 0 0 0 5.06-2.59 17.22 17.22 0 0 0-3-11.59 16.09 16.09 0 0 0-4.09-1.35zM8.68 14.81a1.94 1.94 0 0 1-1.8-2 1.93 1.93 0 0 1 1.8-2 1.93 1.93 0 0 1 1.8 2 1.93 1.93 0 0 1-1.8 2zm6.64 0a1.94 1.94 0 0 1-1.8-2 1.93 1.93 0 0 1 1.8-2 1.92 1.92 0 0 1 1.8 2 1.92 1.92 0 0 1-1.8 2z"></path>
+                </svg>
+                <div class="popper-boi">
+                    <h4 class="popper-text">Home</h4>
+                </div>
+            </li>
+            <li class="divider"></li>
             <% for (const guild of guilds) { %>
-                <li>Name: <%= guild.name %></li>
-                <li>ID: <%= guild.id %></li>
-                <li><img src="<%= guild.icon ? `https://cdn.discordapp.com/icons/${guild.id}/${guild.icon}` : '../Assets/discord-icon.png' %>" width="60px" height="60px"/></li>
-                <hr>
+                <li class="squircle purple-boi">
+                    <img src="<%= guild.icon ? `https://cdn.discordapp.com/icons/${guild.id}/${guild.icon}` : '../discord-icon.gif' %>" class="server-icon" />
+                    <div class="popper-boi">
+                        <h4 class="popper-text">
+                            <%= guild.name %> (<%=guild.id %>)
+                        </h4>
+                    </div>
+                </li>
             <% } %>
+            <li class="squircle green-boi">
+                <svg class="circleIcon-LvPL6c" aria-hidden="false" width="24" height="24" viewBox="0 0 24 24">
+                    <path fill="currentColor"
+                        d="M20 11.1111H12.8889V4H11.1111V11.1111H4V12.8889H11.1111V20H12.8889V12.8889H20V11.1111Z">
+                    </path>
+                </svg>
+                <div class="popper-boi">
+                    <h4 class="popper-text">Add a Server</h4>
+                </div>
+            </li>
+            <li class="squircle green-boi">
+                <svg aria-hidden="false" width="24" height="24" viewBox="0 0 24 24">
+                    <path fill="currentColor"
+                        d="M12 10.9C11.39 10.9 10.9 11.39 10.9 12C10.9 12.61 11.39 13.1 12 13.1C12.61 13.1 13.1 12.61 13.1 12C13.1 11.39 12.61 10.9 12 10.9ZM12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM14.19 14.19L6 18L9.81 9.81L18 6L14.19 14.19Z">
+                    </path>
+                </svg>
+                <div class="popper-boi">
+                    <h4 class="popper-text">Explore Public Servers</h4>
+                </div>
+            </li>
         </ul>
-    <% } %>
+    </nav>
 </body>
 
 </html>
