@@ -12,6 +12,7 @@
     <h1>Dashboard</h1>
     <a href="https://cdn.discordapp.com/avatars/<%= user.id %>/<%= user.avatar %>"><img src="https://cdn.discordapp.com/avatars/<%= user.id %>/<%= user.avatar %>" width="55px" height="55px" /></a>
     <p><%= user.username + '#' + user.discriminator %></p>
+    <a href="/logout">Logout</a>
     <br>
     <% if (guilds.length === 0) { %>
         <p>You aren't in any guilds!</p>

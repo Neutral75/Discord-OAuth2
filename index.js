@@ -14,7 +14,17 @@ app.set('views', path.join(__dirname, './Views'));
 app.set('view engine', 'ejs');
 
 app.get('/', async (request, response) => {
-    return response.render('index');
+    const tokenType = request.cookies.token_type;
+    const accessToken = request.cookies.access_token;
+    let page = 'dashboard';
+
+    if (!tokenType || !accessToken) {
+        page = 'login'
+    }
+
+    return response.render('index', {
+        page: page
+    });
 });
 
 app.get('/login', async (request, response) => {
@@ -87,5 +97,5 @@ app.get('/dashboard', async (request, response) => {
 });
 
 app.listen(config.PORT, () => {
-    return console.log('Beep! Running on http://localhost:' + config.PORT);
+    return console.log('Beep! Running on port ' + config.PORT);
 });
