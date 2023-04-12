@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Discord OAuth2</title>
+</head>
+
+<body>
+    <h1>Dashboard</h1>
+    <a href="https://cdn.discordapp.com/avatars/<%= user.id %>/<%= user.avatar %>"><img src="https://cdn.discordapp.com/avatars/<%= user.id %>/<%= user.avatar %>" width="55px" height="55px" /></a>
+    <p><%= user.username + '#' + user.discriminator %></p>
+    <br>
+    <% if (guilds.length === 0) { %>
+        <p>You aren't in any guilds!</p>
+    <% } else { %>
+        <ul>
+            <% for (const guild of guilds) { %>
+                <li>Name: <%= guild.name %></li>
+                <li>ID: <%= guild.id %></li>
+                <li><img src="<%= guild.icon ? `https://cdn.discordapp.com/icons/${guild.id}/${guild.icon}` : '../Assets/discord-icon.png' %>" width="60px" height="60px"/></li>
+                <hr>
+            <% } %>
+        </ul>
+    <% } %>
+</body>
+
+</html>
