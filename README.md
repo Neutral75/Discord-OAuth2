@@ -1,6 +1,6 @@
 <h1>Discord OAuth2</h1>
 <p>A simple discord authentication template for me to refer back to and to simplify for other developers.</p>
-<hr>
+
 <h2>Installation</h2>
 <ol>
   <li>Fork or download the project.</li>
